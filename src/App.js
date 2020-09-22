@@ -8,6 +8,19 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [customerList, setCustomerList] = useState([]);
+
+  //Create new customer
+  const [customerName, setCustomerName] = useState("");
+  const [customerOrgNr, setCustomerOrgNr] = useState("");
+  const [customerVatNr, setCustomerVatNr] = useState("");
+  const [customerReference, setCustomerReference] = useState("");
+  const [customerPaymentTerm, setCustomerPaymentTerm] = useState("");
+  const [customerWebsite, setCustomerWebsite] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPhoneNr, setCustomerPhoneNr] = useState("");
+
+  //-----
   const [organisationName, setOrganisationName] = useState("");
   const [organisationKind, setOrganisationKind] = useState("");
 
@@ -60,30 +73,37 @@ function App() {
     );
   }
 
-  const [customers, setCustomers] = useState([]);
-  function getCustomerList() {
+  function getAllCustomers() {
+    console.log("getAllCustomers started");
     userKit
       .getCustomerList()
       .then((res) => res.json())
       .then((data) => {
-        console.log("data ", JSON.stringify(data));
-        if (data && data.results && data.results.length > 0) {
-          setCustomers(data.results);
-        }
+        setCustomerList(data.results);
       });
   }
 
-  /*
-  function renderInput(placeholder, stateVariable, stateSetVariable) {
-    return (
-      <input
-        placeholder={placeholder}
-        value={stateVariable}
-        onchange={(e) => stateSetVariable(e.target.value)}
-      />
-    );
+  function handleCreateCustomer() {
+    const payload = {
+      name: customerName,
+      customerName: customerName,
+      customerOrgNr: customerOrgNr,
+      customerVatNr: customerVatNr,
+      customerReference: customerReference,
+      customerPaymentTerm: customerPaymentTerm,
+      customerWebsite: customerWebsite,
+      customerEmail: customerEmail,
+      customerPhoneNr: customerPhoneNr,
+      customerOrgNr: customerOrgNr,
+    };
+    userKit
+      .createCustomer(payload)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        getAllCustomers();
+      });
   }
-*/
 
   const Wrapper = styled.div`
     display: flex;
@@ -112,12 +132,56 @@ function App() {
           <div>
             <Home>
               <h1>Home</h1>
-              <button onClick={getCustomerList}>Get customers</button>
+              <button onClick={getAllCustomers}>Get all customers</button>
+              {customerList.map((customerItem) => {
+                return <p> Name: {customerItem.name}</p>;
+              })}
+
               <div>
-                {customers &&
-                  customers.map((customer) => {
-                    return <div>Name: {customer.name}</div>;
-                  })}
+                <p>Create a new customer</p>
+                <input
+                  placeholder="Enter customer name"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                />
+                <input
+                  placeholder="Customer organisation number"
+                  value={customerOrgNr}
+                  onChange={(e) => setCustomerOrgNr(e.target.value)}
+                />
+                <input
+                  placeholder="Customer vatNr"
+                  value={customerVatNr}
+                  onChange={(e) => setCustomerVatNr(e.target.value)}
+                />
+
+                <input
+                  placeholder="Customer reference"
+                  value={customerReference}
+                  onChange={(e) => setCustomerReference(e.target.value)}
+                />
+                <input
+                  placeholder="PaymentTerm"
+                  value={customerPaymentTerm}
+                  onChange={(e) => setCustomerPaymentTerm(e.target.value)}
+                />
+                <input
+                  placeholder="Website"
+                  value={customerWebsite}
+                  onChange={(e) => setCustomerWebsite(e.target.value)}
+                />
+                <input
+                  placeholder="Email"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                />
+                <input
+                  placeholder="Phone Number"
+                  value={customerPhoneNr}
+                  onChange={(e) => setCustomerPhoneNr(e.target.value)}
+                />
+
+                <button onClick={handleCreateCustomer}>Create customer</button>
               </div>
             </Home>
           </div>
@@ -190,8 +254,3 @@ function App() {
 }
 
 export default App;
-
-/*
-email: mian@willandskill.se
-password: js-fend-19
-*/

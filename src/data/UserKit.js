@@ -1,4 +1,7 @@
 const ROOT_URL = "https://frebi.willandskill.eu/";
+const API_URL = `${ROOT_URL}api/v1/`;
+const AUTH_URL = `${ROOT_URL}auth/`;
+const LOGIN_URL = `${ROOT_URL}api-token-auth/`;
 
 /* POST COSTUMER
 {
@@ -77,14 +80,24 @@ export default class {
   }
 
   async getCustomerList() {
-    const url = `${ROOT_URL}api/v1/customers`;
+    const url = `${API_URL}customers`;
     let fetchedHeaders = this.getPrivateHeaders();
 
-    console.log(
+    /*console.log(
       `getCustomerList ${url} . headers: ${JSON.stringify(fetchedHeaders)}`
-    );
+    );*/
+
     return fetch(url, {
       headers: fetchedHeaders,
+    });
+  }
+
+  async createCustomer(payload) {
+    const url = `${API_URL}customers`;
+    return fetch(url, {
+      method: "POST",
+      headers: this.getPrivateHeaders(),
+      body: JSON.stringify(payload),
     });
   }
 
