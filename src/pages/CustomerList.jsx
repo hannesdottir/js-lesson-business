@@ -22,8 +22,6 @@ export default function CustomerList({
   const userKit = new UserKit();
 
   useEffect(() => {
-    //  userKit.deleteCustomer(978);
-    //göra knapp/ använd id-et.
     getCustomerList();
   }, []);
 

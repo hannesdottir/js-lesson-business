@@ -3,7 +3,6 @@ import UserKit from "../data/UserKit";
 import { useHistory } from "react-router-dom";
 
 export default function CreateCustomer() {
-  //Create new customer
   const [customerName, setCustomerName] = useState("");
   const [customerOrgNr, setCustomerOrgNr] = useState("");
   const [customerVatNr, setCustomerVatNr] = useState("");
@@ -32,7 +31,7 @@ export default function CreateCustomer() {
       .createCustomer(payload)
       .then((res) => res.json())
       .then((data) => {
-        //När användaren har skapat hunden ska kundlistan laddas om från back-end
+        //TODO ::::::::::::: När användaren har skapat hunden ska kundlistan laddas om från back-end
         history.push("/customers");
       });
   }

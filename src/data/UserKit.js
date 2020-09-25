@@ -3,37 +3,6 @@ const API_URL = `${ROOT_URL}api/v1/`;
 const AUTH_URL = `${ROOT_URL}auth/`;
 const LOGIN_URL = `${ROOT_URL}api-token-auth/`;
 
-/* POST COSTUMER
-{
-  "parent": {
-    "name": "string",
-    "organisationNr": "string",
-    "vatNr": "string",
-    "reference": "string",
-    "paymentTerm": 0,
-    "kind": 0,
-    "website": "string",
-    "email": "user@example.com",
-    "phoneNumber": "string",
-    "clientInvoiceSettings": {
-      "defaultInterest": "string",
-      "iban": "string",
-      "artisan": true,
-      "artisanTown": "string",
-      "merchant": true,
-      "merchantTown": "string"
-    }
-  },
-  "name": "string",
-  "organisationNr": "string",
-  "vatNr": "string",
-  "reference": "string",
-  "paymentTerm": 0,
-  "website": "string",
-  "email": "user@example.com",
-  "phoneNumber": "string"
-}
-*/
 export default class {
   async register(
     firstName,
@@ -82,11 +51,6 @@ export default class {
   async getCustomerList() {
     const url = `${API_URL}customers`;
     let fetchedHeaders = this.getPrivateHeaders();
-
-    /*console.log(
-      `getCustomerList ${url} . headers: ${JSON.stringify(fetchedHeaders)}`
-    );*/
-
     return fetch(url, {
       headers: fetchedHeaders,
     });
