@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
+import { UserContext } from "./contexts/UserContext";
 import UserKit from "./data/UserKit";
 import styled from "styled-components";
 import CustomerList from "./pages/CustomerList";
@@ -18,6 +19,9 @@ function App() {
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+
+  //Logged in user:
+  const [loggedInUser, setLoggedInUser] = useState({ name: "hej" });
 
   const history = useHistory();
   //plocka ut searchstring från history variabeln
@@ -84,84 +88,86 @@ function App() {
   `;
 
   return (
-    <Wrapper>
-      <h1>Inlämningsuppgift - Javascript 3</h1>
+    <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+      <Wrapper>
+        <h1>Inlämningsuppgift - Javascript 3</h1>
 
-      <Switch>
-        <Route path="/home">
-          <h1>Welcome!</h1>
-        </Route>
+        <Switch>
+          <Route path="/home">
+            <h1>Welcome!</h1>
+          </Route>
 
-        <Route path="/customers/:slug" component={CustomerDetail} />
+          <Route path="/customers/:slug" component={CustomerDetail} />
 
-        <Route path="/customers">
-          <CustomerList />
-          <CreateCustomer />
-        </Route>
+          <Route path="/customers">
+            <CustomerList />
+            <CreateCustomer />
+          </Route>
 
-        <Route path="/login">
-          {uid && token ? (
-            <div>
-              <h2>Activate Account</h2>
-              <button onClick={handleActivateUser}>Activate User</button>
-            </div>
-          ) : (
-            <div>
-              <h2>Login</h2>
+          <Route path="/login">
+            {uid && token ? (
+              <div>
+                <h2>Activate Account</h2>
+                <button onClick={handleActivateUser}>Activate User</button>
+              </div>
+            ) : (
+              <div>
+                <h2>Login</h2>
+                <input
+                  placeholder="Email"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                />
+                <input
+                  placeholder="Password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                />
+                <button onClick={handleLogin}>Login</button>
+              </div>
+            )}
+          </Route>
+          <Route path="/">
+            <StartPage>
+              <h2>Register</h2>
+              <p>Enter details to register</p>
+
+              <input
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
               <input
                 placeholder="Email"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 placeholder="Password"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <button onClick={handleLogin}>Login</button>
-            </div>
-          )}
-        </Route>
-        <Route path="/">
-          <StartPage>
-            <h2>Register</h2>
-            <p>Enter details to register</p>
-
-            <input
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <input
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input
-              placeholder="Organisation Name"
-              value={organisationName}
-              onChange={(e) => setOrganisationName(e.target.value)}
-            />
-            <input
-              placeholder="Organisation Kind (0,1,2)"
-              value={organisationKind}
-              onChange={(e) => setOrganisationKind(e.target.value)}
-            />
-            <button onClick={handleRegister}>Register</button>
-          </StartPage>
-        </Route>
-      </Switch>
-    </Wrapper>
+              <input
+                placeholder="Organisation Name"
+                value={organisationName}
+                onChange={(e) => setOrganisationName(e.target.value)}
+              />
+              <input
+                placeholder="Organisation Kind (0,1,2)"
+                value={organisationKind}
+                onChange={(e) => setOrganisationKind(e.target.value)}
+              />
+              <button onClick={handleRegister}>Register</button>
+            </StartPage>
+          </Route>
+        </Switch>
+      </Wrapper>
+    </UserContext.Provider>
   );
 }
 

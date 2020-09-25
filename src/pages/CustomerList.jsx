@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import UserKit from "../data/UserKit";
+import Header from "../components/Header";
+import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 
 export default function CustomerList({
@@ -12,6 +14,10 @@ export default function CustomerList({
   email,
   phoneNr,
 }) {
+  const contextValue = useContext(UserContext);
+  const { loggedInUser } = contextValue;
+
+  console.log("Innehåll av contextValue", contextValue.loggedInUser);
   const [customerList, setCustomerList] = useState([]);
   const userKit = new UserKit();
 
@@ -34,6 +40,7 @@ export default function CustomerList({
 
   return (
     <div>
+      <Header />
       <h2>All customers</h2>
 
       {customerList &&
@@ -49,9 +56,3 @@ export default function CustomerList({
     </div>
   );
 }
-
-/*
-Objects are not valid as a React child (found: object with keys 
-  {id, parent, name, organisationNr, vatNr, reference, paymentTerm,
-     website, email, phoneNumber, address}).
- If you meant to render a collection of children, use an array instead.*/
