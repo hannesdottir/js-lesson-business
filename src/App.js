@@ -2,23 +2,15 @@ import React, { useState } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import UserKit from "./data/UserKit";
 import styled from "styled-components";
+import CustomerList from "./pages/CustomerList";
+import CustomerDetail from "./pages/CustomerDetail";
+import CreateCustomer from "./components/CreateCustomer";
 
 function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [customerList, setCustomerList] = useState([]);
-
-  //Create new customer
-  const [customerName, setCustomerName] = useState("");
-  const [customerOrgNr, setCustomerOrgNr] = useState("");
-  const [customerVatNr, setCustomerVatNr] = useState("");
-  const [customerReference, setCustomerReference] = useState("");
-  const [customerPaymentTerm, setCustomerPaymentTerm] = useState("");
-  const [customerWebsite, setCustomerWebsite] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [customerPhoneNr, setCustomerPhoneNr] = useState("");
 
   //-----
   const [organisationName, setOrganisationName] = useState("");
@@ -73,38 +65,6 @@ function App() {
     );
   }
 
-  function getAllCustomers() {
-    console.log("getAllCustomers started");
-    userKit
-      .getCustomerList()
-      .then((res) => res.json())
-      .then((data) => {
-        setCustomerList(data.results);
-      });
-  }
-
-  function handleCreateCustomer() {
-    const payload = {
-      name: customerName,
-      customerName: customerName,
-      customerOrgNr: customerOrgNr,
-      customerVatNr: customerVatNr,
-      customerReference: customerReference,
-      customerPaymentTerm: customerPaymentTerm,
-      customerWebsite: customerWebsite,
-      customerEmail: customerEmail,
-      customerPhoneNr: customerPhoneNr,
-      customerOrgNr: customerOrgNr,
-    };
-    userKit
-      .createCustomer(payload)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        getAllCustomers();
-      });
-  }
-
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -125,66 +85,18 @@ function App() {
 
   return (
     <Wrapper>
-      <h1>Business Project</h1>
+      <h1>Inlämningsuppgift - Javascript 3</h1>
 
       <Switch>
         <Route path="/home">
-          <div>
-            <Home>
-              <h1>Home</h1>
-              <button onClick={getAllCustomers}>Get all customers</button>
-              {customerList.map((customerItem) => {
-                return <p> Name: {customerItem.name}</p>;
-              })}
+          <h1>Welcome!</h1>
+        </Route>
 
-              <div>
-                <p>Create a new customer</p>
-                <input
-                  placeholder="Enter customer name"
-                  value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                />
-                <input
-                  placeholder="Customer organisation number"
-                  value={customerOrgNr}
-                  onChange={(e) => setCustomerOrgNr(e.target.value)}
-                />
-                <input
-                  placeholder="Customer vatNr"
-                  value={customerVatNr}
-                  onChange={(e) => setCustomerVatNr(e.target.value)}
-                />
+        <Route path="/customers/:slug" component={CustomerDetail} />
 
-                <input
-                  placeholder="Customer reference"
-                  value={customerReference}
-                  onChange={(e) => setCustomerReference(e.target.value)}
-                />
-                <input
-                  placeholder="PaymentTerm"
-                  value={customerPaymentTerm}
-                  onChange={(e) => setCustomerPaymentTerm(e.target.value)}
-                />
-                <input
-                  placeholder="Website"
-                  value={customerWebsite}
-                  onChange={(e) => setCustomerWebsite(e.target.value)}
-                />
-                <input
-                  placeholder="Email"
-                  value={customerEmail}
-                  onChange={(e) => setCustomerEmail(e.target.value)}
-                />
-                <input
-                  placeholder="Phone Number"
-                  value={customerPhoneNr}
-                  onChange={(e) => setCustomerPhoneNr(e.target.value)}
-                />
-
-                <button onClick={handleCreateCustomer}>Create customer</button>
-              </div>
-            </Home>
-          </div>
+        <Route path="/customers">
+          <CustomerList />
+          <CreateCustomer />
         </Route>
 
         <Route path="/login">

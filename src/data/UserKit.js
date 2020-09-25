@@ -92,12 +92,33 @@ export default class {
     });
   }
 
+  async getCustomerDetail(inputParameter) {
+    const url = `${API_URL}customers/${inputParameter}/`;
+    console.log("get costumerDetail url: ", url);
+    return fetch(url, {
+      headers: this.getPrivateHeaders(),
+    });
+  }
+
   async createCustomer(payload) {
     const url = `${API_URL}customers`;
+    console.log("createCustomer url: ", url);
+    console.log("createCustomer payload: ", JSON.stringify(payload));
+
     return fetch(url, {
       method: "POST",
       headers: this.getPrivateHeaders(),
       body: JSON.stringify(payload),
+    });
+  }
+
+  async deleteCustomer(id) {
+    const url = `${API_URL}customers/${id}/`;
+    console.log(`deleteCustomer url:${url} id: ${id}`);
+
+    return fetch(url, {
+      method: "DELETE",
+      headers: this.getPrivateHeaders(),
     });
   }
 
