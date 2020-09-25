@@ -48,6 +48,13 @@ export default class {
     });
   }
 
+  async getLoggedInUser() {
+    const url = `${ROOT_URL}api/v1/me`;
+    return fetch(url, {
+      headers: this.getPrivateHeaders(),
+    });
+  }
+
   async getCustomerList() {
     const url = `${API_URL}customers`;
     let fetchedHeaders = this.getPrivateHeaders();

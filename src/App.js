@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { UserContext } from "./contexts/UserContext";
+import { CustomerListContext } from "./contexts/CustomerListContext";
 import styled from "styled-components";
 import CustomerList from "./pages/CustomerList";
 import CustomerDetail from "./pages/CustomerDetail";
@@ -10,7 +11,10 @@ import Login from "./components/Login";
 
 function App() {
   //Logged in user:
-  const [loggedInUser, setLoggedInUser] = useState({ name: "hej" });
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  //CustomerList
+  const [customerList, setCustomerList] = useState([]);
 
   const Wrapper = styled.div`
     display: flex;
@@ -32,31 +36,29 @@ function App() {
 
   return (
     <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-      <Wrapper>
-        <h1>Inlämningsuppgift - Javascript 3</h1>
+      <CustomerListContext.Provider value={{ customerList, setCustomerList }}>
+        <Wrapper>
+          <h1>Inlämningsuppgift - Javascript 3</h1>
 
-        <Switch>
-          <Route path="/home">
-            <h1>Welcome!</h1>
-          </Route>
+          <Switch>
+            <Route path="/customers/:slug" component={CustomerDetail} />
 
-          <Route path="/customers/:slug" component={CustomerDetail} />
+            <Route path="/home">
+              <CustomerList />
+              <CreateCustomer />
+            </Route>
 
-          <Route path="/customers">
-            <CustomerList />
-            <CreateCustomer />
-          </Route>
-
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/">
-            <RegistrationWrapper>
-              <Registration />
-            </RegistrationWrapper>
-          </Route>
-        </Switch>
-      </Wrapper>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/">
+              <RegistrationWrapper>
+                <Registration />
+              </RegistrationWrapper>
+            </Route>
+          </Switch>
+        </Wrapper>
+      </CustomerListContext.Provider>
     </UserContext.Provider>
   );
 }

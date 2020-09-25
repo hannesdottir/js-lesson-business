@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import UserKit from "../data/UserKit";
+import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
 
 export default function Login() {

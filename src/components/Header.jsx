@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
-
+import UserKit from "../data/UserKit";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -10,14 +10,20 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+const userKit = new UserKit();
 
 export default function Header() {
-  const { loggedInUser } = useContext(UserContext);
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   console.log("Loggedinuser", loggedInUser);
+
+  let name = "";
+  if (loggedInUser) {
+    name = `${loggedInUser.firstName} ${loggedInUser.lastName}`;
+  }
 
   return (
     <Container>
-      <div>Inloggad: {loggedInUser.name}</div>
+      <div>Inloggad: {name}</div>
       <div>Meny</div>
     </Container>
   );

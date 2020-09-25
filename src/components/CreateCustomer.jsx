@@ -31,8 +31,8 @@ export default function CreateCustomer() {
       .createCustomer(payload)
       .then((res) => res.json())
       .then((data) => {
-        //TODO ::::::::::::: När användaren har skapat hunden ska kundlistan laddas om från back-end
-        history.push("/customers");
+        //TODO ::::::::::::: När användaren har skapat kunden ska kundlistan laddas om från back-end
+        history.push("/home");
       });
   }
 
