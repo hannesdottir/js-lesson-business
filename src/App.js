@@ -6,6 +6,7 @@ import styled from "styled-components";
 import CustomerList from "./pages/CustomerList";
 import CustomerDetail from "./pages/CustomerDetail";
 import CreateCustomer from "./components/CreateCustomer";
+import Home from "./pages/Home";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 
@@ -16,41 +17,40 @@ function App() {
   //CustomerList
   const [customerList, setCustomerList] = useState([]);
 
+  const Heading = styled.h1`
+    font-size: 18px;
+  `;
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
   `;
 
-  const RegistrationWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-  `;
-
   return (
     <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-      <Wrapper>
-        <h1>Inlämningsuppgift - Javascript 3</h1>
+      <CustomerListContext.Provider value={{ customerList, setCustomerList }}>
+        <Wrapper>
+          <Heading>Javascript 3</Heading>
 
-        <Switch>
-          <Route path="/customers/:slug" component={CustomerDetail} />
+          <Switch>
+            <Route path="/customers/:slug" component={CustomerDetail} />
 
-          <Route path="/home">
-            <CustomerList />
-            <CreateCustomer />
-          </Route>
+            <Route path="/home">
+              <Home />
+              {/* <CustomerList />
+              <CreateCustomer /> */}
+            </Route>
 
-          <Route path="/login">
-            <Login />
-          </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
 
-          <Route path="/">
-            <RegistrationWrapper>
+            <Route path="/">
               <Registration />
-            </RegistrationWrapper>
-          </Route>
-        </Switch>
-      </Wrapper>
+            </Route>
+          </Switch>
+        </Wrapper>
+      </CustomerListContext.Provider>
     </UserContext.Provider>
   );
 }

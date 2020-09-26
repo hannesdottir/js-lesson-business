@@ -46,7 +46,8 @@ export default function Login() {
 
   const Button = styled.button`
     background-color: peachpuff;
-    font-size: 1.5em;
+    font-size: 1em;
+    font-weight: 600;
     margin: 1em;
     padding: 0.25em 1em;
     border: 2px solid black;
