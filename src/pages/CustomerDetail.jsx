@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserKit from "../data/UserKit";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 export default function CustomerDetail(props) {
   const [customerDetail, setCustomerDetail] = useState({});
@@ -29,9 +30,19 @@ export default function CustomerDetail(props) {
     userKit.deleteCustomer(customerDetail.id).then((data) => {});
     history.push("/home");
   }
+
+  const Button = styled.button`
+    background-color: peachpuff;
+    font-size: 1.5em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid black;
+    border-radius: 3px;
+  `;
+
   return (
     <div>
-      <h1>Customer name: {customerDetail.name}</h1>
+      <p>Customer name: {customerDetail.name}</p>
       <p>Organisation Number: {customerDetail.organisationNr}</p>
       <p>Vat Number: {customerDetail.vatNr}</p>
       <p>Reference: {customerDetail.reference}</p>
@@ -39,7 +50,8 @@ export default function CustomerDetail(props) {
       <p>Website: {customerDetail.website}</p>
       <p>email: {customerDetail.email}</p>
       <p>Phone number: {customerDetail.phoneNumber}</p>
-      <button onClick={handleDeleteCustomer}>Radera kund</button>
+
+      <Button onClick={handleDeleteCustomer}>Radera kund</Button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import UserKit from "../data/UserKit";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -43,6 +44,15 @@ export default function Login() {
       });
   }
 
+  const Button = styled.button`
+    background-color: peachpuff;
+    font-size: 1.5em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid black;
+    border-radius: 3px;
+  `;
+
   return (
     <div>
       {uid && token ? (
@@ -63,7 +73,7 @@ export default function Login() {
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}
           />
-          <button onClick={handleLogin}>Login</button>
+          <Button onClick={handleLogin}>Login</Button>
         </div>
       )}
     </div>

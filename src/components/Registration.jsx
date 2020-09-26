@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UserKit from "../data/UserKit";
+import styled from "styled-components";
 
 export default function Registration() {
   //registration
@@ -23,6 +24,15 @@ export default function Registration() {
       organisationKind
     );
   }
+
+  const Button = styled.button`
+    background-color: peachpuff;
+    font-size: 1.5em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid black;
+    border-radius: 3px;
+  `;
 
   return (
     <div>
@@ -59,7 +69,7 @@ export default function Registration() {
         value={organisationKind}
         onChange={(e) => setOrganisationKind(e.target.value)}
       />
-      <button onClick={handleRegister}>Register</button>
+      <Button onClick={handleRegister}>Register</Button>
     </div>
   );
 }

@@ -22,16 +22,9 @@ function App() {
     align-items: center;
   `;
 
-  const Home = styled.div`
-    display: flex;
-    flex-direction: column;
-  `;
-
   const RegistrationWrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
+    flex-direction: row;
   `;
 
   return (
@@ -50,6 +43,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
+
           <Route path="/">
             <RegistrationWrapper>
               <Registration />

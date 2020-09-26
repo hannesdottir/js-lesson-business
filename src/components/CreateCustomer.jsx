@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UserKit from "../data/UserKit";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 export default function CreateCustomer() {
   const [customerName, setCustomerName] = useState("");
@@ -36,58 +37,79 @@ export default function CreateCustomer() {
       });
   }
 
+  const CreateCustomerStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+  `;
+
+  const Button = styled.button`
+    background-color: peachpuff;
+    font-size: 1.5em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid black;
+    border-radius: 3px;
+  `;
+
+  const Input = styled.input`
+    margin-bottom: 1.5rem;
+    height: 20px;
+    border: solid 1px black;
+  `;
+
   return (
-    <div>
-      <p>Create a new customer</p>
-      <input
+    <CreateCustomerStyle>
+      <h2>Create a new customer</h2>
+      <label>Customer name</label>
+      <Input
         type="text"
-        placeholder="Enter customer name"
         value={customerName}
         onChange={(e) => setCustomerName(e.target.value)}
       />
-      <input
+      <label>Organisation number</label>
+      <Input
         type="number"
-        placeholder="Customer organisation number"
         value={customerOrgNr}
         onChange={(e) => setCustomerOrgNr(e.target.value)}
       />
-      <input
+      <label>VatNr</label>
+      <Input
         type="number"
-        placeholder="Customer vatNr"
         value={customerVatNr}
         onChange={(e) => setCustomerVatNr(e.target.value)}
       />
-      <input
+      <label>Customer reference</label>
+      <Input
         type="text"
-        placeholder="Customer reference"
         value={customerReference}
         onChange={(e) => setCustomerReference(e.target.value)}
       />
-      <input
+      <label>Payment Term</label>
+      <Input
         type="number"
-        placeholder="PaymentTerm"
         value={customerPaymentTerm}
         onChange={(e) => setCustomerPaymentTerm(e.target.value)}
       />
-      <input
+      <label>Website</label>
+      <Input
         type="text"
-        placeholder="Website"
         value={customerWebsite}
         onChange={(e) => setCustomerWebsite(e.target.value)}
       />
-      <input
+      <label>Email</label>
+      <Input
         type="email"
-        placeholder="Email"
         value={customerEmail}
         onChange={(e) => setCustomerEmail(e.target.value)}
       />
-      <input
+      <label>Phone number</label>
+      <Input
         type="number"
-        placeholder="Phone Number"
         value={customerPhoneNr}
         onChange={(e) => setCustomerPhoneNr(e.target.value)}
       />
-      <button onClick={handleCreateCustomer}>Create customer</button>
-    </div>
+      <Button onClick={handleCreateCustomer}>Create customer</Button>
+    </CreateCustomerStyle>
   );
 }
