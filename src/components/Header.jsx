@@ -24,7 +24,6 @@ export default function Header() {
   return (
     <Container>
       <div>Inloggad: {name}</div>
-      <div>Meny</div>
     </Container>
   );
 }

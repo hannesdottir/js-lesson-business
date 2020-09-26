@@ -36,29 +36,27 @@ function App() {
 
   return (
     <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-      <CustomerListContext.Provider value={{ customerList, setCustomerList }}>
-        <Wrapper>
-          <h1>Inlämningsuppgift - Javascript 3</h1>
+      <Wrapper>
+        <h1>Inlämningsuppgift - Javascript 3</h1>
 
-          <Switch>
-            <Route path="/customers/:slug" component={CustomerDetail} />
+        <Switch>
+          <Route path="/customers/:slug" component={CustomerDetail} />
 
-            <Route path="/home">
-              <CustomerList />
-              <CreateCustomer />
-            </Route>
+          <Route path="/home">
+            <CustomerList />
+            <CreateCustomer />
+          </Route>
 
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/">
-              <RegistrationWrapper>
-                <Registration />
-              </RegistrationWrapper>
-            </Route>
-          </Switch>
-        </Wrapper>
-      </CustomerListContext.Provider>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">
+            <RegistrationWrapper>
+              <Registration />
+            </RegistrationWrapper>
+          </Route>
+        </Switch>
+      </Wrapper>
     </UserContext.Provider>
   );
 }

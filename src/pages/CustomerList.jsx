@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import UserKit from "../data/UserKit";
 import Header from "../components/Header";
 import { UserContext } from "../contexts/UserContext";
-import { CustomerListContext } from "../contexts/CustomerListContext";
 import { Link } from "react-router-dom";
 
 export default function CustomerList() {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
-  const { customerList, setCustomerList } = useContext(CustomerListContext);
+  //const { customerList, setCustomerList } = useContext(CustomerListContext);
+  const [customerList, setCustomerList] = useState([]);
 
   const userKit = new UserKit();
 
@@ -30,7 +30,7 @@ export default function CustomerList() {
 
   useEffect(() => {
     getCustomerList();
-  }, [customerList]);
+  }, []);
 
   function getCustomerList() {
     console.log("getCustomerList started");
