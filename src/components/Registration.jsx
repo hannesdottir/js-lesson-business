@@ -39,7 +39,6 @@ const RegisterForm = styled.form`
   flex-direction: column;
 `;
 export default function Registration() {
-  //registration
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

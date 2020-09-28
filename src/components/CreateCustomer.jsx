@@ -46,7 +46,7 @@ export default function CreateCustomer({ getCustomerList }) {
 
   function handleCreateCustomer() {
     if (validateVatNr(customerVatNr) === false) {
-      alert("Du måste skriva in SE sen 10 siffror");
+      alert("You have to write SE followed by 10 numbers");
       return;
     }
     const payload = {
