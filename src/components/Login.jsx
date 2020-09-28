@@ -29,6 +29,12 @@ const ActivateAccountWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -57,7 +63,11 @@ export default function Login() {
   }
 
   function handleLogin() {
-    console.log("handleLogin started");
+    //console.log("handleLogin started");
+    if (validateLogin(loginEmail) === false) {
+      alert("You have to fill in your email and password");
+      return;
+    }
     userKit
       .login(loginEmail, loginPassword)
       .then((res) => res.json())
@@ -66,6 +76,17 @@ export default function Login() {
         userKit.setToken(data.token);
         history.push("/home");
       });
+  }
+
+  function validateLogin(loginEmail, loginPassword) {
+    let loginInfo = loginEmail && loginPassword;
+    if (!loginInfo) {
+      return false;
+    }
+    if (loginInfo > 1) {
+      return true;
+    }
+    return false;
   }
 
   return (
@@ -78,19 +99,22 @@ export default function Login() {
       ) : (
         <div>
           <LoginHeading>Login</LoginHeading>
+          <LoginWrapper>
+            <Input
+              placeholder="Email"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+              required
+            />
+            <Input
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+              required
+            />
 
-          <Input
-            placeholder="Email"
-            value={loginEmail}
-            onChange={(e) => setLoginEmail(e.target.value)}
-          />
-          <Input
-            placeholder="Password"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-          />
-
-          <Button onClick={handleLogin}>Login</Button>
+            <Button onClick={handleLogin}>Login</Button>
+          </LoginWrapper>
         </div>
       )}
     </div>

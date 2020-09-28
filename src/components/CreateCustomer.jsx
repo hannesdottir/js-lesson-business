@@ -45,6 +45,10 @@ export default function CreateCustomer({ getCustomerList }) {
   const history = useHistory();
 
   function handleCreateCustomer() {
+    if (validateVatNr(customerVatNr) === false) {
+      alert("Du måste skriva in SE sen 10 siffror");
+      return;
+    }
     const payload = {
       name: customerName,
       organisationNr: customerOrgNr,
@@ -72,6 +76,20 @@ export default function CreateCustomer({ getCustomerList }) {
         getCustomerList();
         history.push("/home");
       });
+  }
+
+  function validateVatNr(customerVatNr) {
+    let approvedVatNrRegex = /(SE)?[0-9]{10}/;
+    if (!customerVatNr) {
+      // console.log("customervatnr empty");
+      return false;
+    }
+    let isValidVatNr = approvedVatNrRegex.test(customerVatNr);
+    //console.log("isvalidatevatnr: ", isValidVatNr);
+    if (customerVatNr.startsWith("SE") && isValidVatNr) {
+      return true;
+    }
+    return false;
   }
 
   return (
