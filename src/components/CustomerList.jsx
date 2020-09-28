@@ -11,6 +11,7 @@ const CustomerNameStyling = styled.div`
   color: black;
   a:hover {
     color: lightsalmon;
+    text-decoration: none;
   }
 `;
 

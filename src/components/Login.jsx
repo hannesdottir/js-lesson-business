@@ -64,8 +64,13 @@ export default function Login() {
 
   function handleLogin() {
     //console.log("handleLogin started");
-    if (validateLogin(loginEmail) === false) {
-      alert("You have to fill in your email and password");
+
+    if (validateLoginEmail(loginEmail) === false) {
+      alert("You have to fill in your email");
+      return;
+    }
+    if (validateLoginPassword(loginPassword) === false) {
+      alert("You have to fill in your password");
       return;
     }
     userKit
@@ -78,15 +83,22 @@ export default function Login() {
       });
   }
 
-  function validateLogin(loginEmail, loginPassword) {
-    let loginInfo = loginEmail && loginPassword;
-    if (!loginInfo) {
+  function validateLoginEmail(loginEmail) {
+    if (!loginEmail) {
       return false;
     }
-    if (loginInfo > 1) {
+    if (loginEmail > 4 && loginEmail < 40) {
       return true;
     }
-    return false;
+  }
+
+  function validateLoginPassword(loginPassword) {
+    if (!loginPassword) {
+      return false;
+    }
+    if (loginPassword > 1 && loginEmail < 40) {
+      return true;
+    }
   }
 
   return (

@@ -1,6 +1,6 @@
 # Javascript 3 project - September 2020
 
-## Create account - activate account - login - get customer list - add/remove from customer list - see customer detail
+## create account - activate account - login - get customer list - add/remove from customer list - see customer detail
 
 ## API
 
