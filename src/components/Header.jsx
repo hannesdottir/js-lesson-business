@@ -10,20 +10,30 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+const LoggedInUserEmailStyle = styled.p`
+  font-size: 12px;
+`;
 const userKit = new UserKit();
 
 export default function Header() {
-  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
+  const { loggedInUser } = useContext(UserContext);
+
   console.log("Loggedinuser", loggedInUser);
 
   let name = "";
+  let email = "";
   if (loggedInUser) {
     name = `${loggedInUser.firstName} ${loggedInUser.lastName}`;
+    email = `${loggedInUser.email}`;
   }
 
   return (
     <Container>
-      <div>Inloggad: {name}</div>
+      <div>
+        <p>Inloggad: {name}</p>
+        <LoggedInUserEmailStyle> {email}</LoggedInUserEmailStyle>
+      </div>
     </Container>
   );
 }

@@ -14,13 +14,30 @@ const Button = styled.button`
 
 const RegistrationText = styled.p`
   color: #fd00009e;
+  font-size: 14px;
 `;
 
 const RegistrationWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 4rem;
+  align-self: center;
 `;
 
+const Input = styled.input`
+  margin-bottom: 1rem;
+  height: 20px;
+  border: solid 1px black;
+`;
+
+const RegisterHeading = styled.div`
+  text-align: center;
+`;
+
+const RegisterForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
 export default function Registration() {
   //registration
   const [firstName, setFirstName] = useState("");
@@ -45,44 +62,61 @@ export default function Registration() {
   }
 
   return (
-    <RegistrationWrapper>
-      <h2>Register</h2>
-      <p>Enter details to register</p>
+    <div>
+      <RegistrationWrapper>
+        <RegisterForm>
+          <RegisterHeading>
+            <h2>Register</h2>
+            <p>Enter details to register</p>
+          </RegisterHeading>
 
-      <input
-        placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <input
-        placeholder="Last Name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        placeholder="Organisation Name"
-        value={organisationName}
-        onChange={(e) => setOrganisationName(e.target.value)}
-      />
-      <input
-        placeholder="Organisation Kind (0,1,2)"
-        value={organisationKind}
-        onChange={(e) => setOrganisationKind(e.target.value)}
-      />
-      <Button onClick={handleRegister}>Register</Button>
-      <RegistrationText>
-        Please activate account after registration by using link in your email
-      </RegistrationText>
-    </RegistrationWrapper>
+          <label>First Name</label>
+          <Input
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <label>Last Name</label>
+          <Input
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+
+          <label>Email</label>
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <label>Password</label>
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <label>Organisation name</label>
+          <Input
+            value={organisationName}
+            onChange={(e) => setOrganisationName(e.target.value)}
+            required
+          />
+          <label>Organisation kind</label>
+          <Input
+            placeholder="(0,1,2)"
+            value={organisationKind}
+            onChange={(e) => setOrganisationKind(e.target.value)}
+            required
+          />
+
+          <Button onClick={handleRegister}>Register</Button>
+        </RegisterForm>
+        <RegistrationText>
+          Please activate account after registration by using link in your email
+        </RegistrationText>
+      </RegistrationWrapper>
+    </div>
   );
 }

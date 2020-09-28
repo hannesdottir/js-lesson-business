@@ -3,9 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { UserContext } from "./contexts/UserContext";
 import { CustomerListContext } from "./contexts/CustomerListContext";
 import styled from "styled-components";
-import CustomerList from "./pages/CustomerList";
 import CustomerDetail from "./pages/CustomerDetail";
-import CreateCustomer from "./components/CreateCustomer";
 import Home from "./pages/Home";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
@@ -27,8 +25,8 @@ function App() {
   `;
 
   return (
-    <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-      <CustomerListContext.Provider value={{ customerList, setCustomerList }}>
+    <CustomerListContext.Provider value={{ customerList, setCustomerList }}>
+      <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
         <Wrapper>
           <Heading>Javascript 3</Heading>
 
@@ -50,8 +48,8 @@ function App() {
             </Route>
           </Switch>
         </Wrapper>
-      </CustomerListContext.Provider>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </CustomerListContext.Provider>
   );
 }
 

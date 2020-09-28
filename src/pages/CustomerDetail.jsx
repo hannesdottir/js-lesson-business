@@ -1,35 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
 import UserKit from "../data/UserKit";
 import Header from "../components/Header";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 export default function CustomerDetail(props) {
-  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   const [customerDetail, setCustomerDetail] = useState({});
 
   const userKit = new UserKit();
   const history = useHistory();
   //console.log("CustomerDetail started props: ", JSON.stringify(props));
   //console.log(props.match.params.slug);
-
-  //only get logged in user once
-  useEffect(() => {
-    if (!loggedInUser) {
-      getLoggedInUser();
-    }
-  }, []);
-
-  function getLoggedInUser() {
-    userKit
-      .getLoggedInUser()
-      .then((res) => res.json())
-      .then((data) => {
-        setLoggedInUser(data);
-        console.log("getloggedinuser", data);
-      });
-  }
 
   useEffect(() => {
     getCustomerDetail();
@@ -48,8 +29,9 @@ export default function CustomerDetail(props) {
   }
 
   function handleDeleteCustomer() {
-    userKit.deleteCustomer(customerDetail.id).then((data) => {});
-    history.push("/home");
+    userKit.deleteCustomer(customerDetail.id).then((data) => {
+      history.push("/home");
+    });
   }
 
   const Button = styled.button`
@@ -69,7 +51,7 @@ export default function CustomerDetail(props) {
       <p>Customer name: {customerDetail.name}</p>
       <p>Organisation Number: {customerDetail.organisationNr}</p>
       <p>Vat Number: {customerDetail.vatNr}</p>
-      <p>Reference: {customerDetail.reference}</p>
+      <p>Customer reference: {customerDetail.reference}</p>
       <p>Payment Term: {customerDetail.paymentTerm}</p>
       <p>Website: {customerDetail.website}</p>
       <p>email: {customerDetail.email}</p>

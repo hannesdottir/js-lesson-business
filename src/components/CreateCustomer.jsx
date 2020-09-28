@@ -25,7 +25,12 @@ const Input = styled.input`
   border: solid 1px black;
 `;
 
-export default function CreateCustomer() {
+const CreateCustomerForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+export default function CreateCustomer({ getCustomerList }) {
   const [customerName, setCustomerName] = useState("");
   const [customerOrgNr, setCustomerOrgNr] = useState("");
   const [customerVatNr, setCustomerVatNr] = useState("");
@@ -54,7 +59,17 @@ export default function CreateCustomer() {
       .createCustomer(payload)
       .then((res) => res.json())
       .then((data) => {
-        //TODO ::::::::::::: När användaren har skapat kunden ska kundlistan laddas om från back-end
+        setCustomerName("");
+        setCustomerOrgNr("");
+        setCustomerVatNr("");
+        setCustomerReference("");
+        setCustomerPaymentTerm("");
+        setCustomerWebsite("");
+        setCustomerEmail("");
+        setCustomerPhoneNr("");
+
+        //refresh customer list
+        getCustomerList();
         history.push("/home");
       });
   }
@@ -62,56 +77,67 @@ export default function CreateCustomer() {
   return (
     <div>
       <CreateCustomerStyle>
-        <h2>Create a new customer</h2>
-        <label>Customer name</label>
-        <Input
-          type="text"
-          value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
-        />
-        <label>Organisation number</label>
-        <Input
-          type="number"
-          value={customerOrgNr}
-          onChange={(e) => setCustomerOrgNr(e.target.value)}
-        />
-        <label>VatNr</label>
-        <Input
-          type="number"
-          value={customerVatNr}
-          onChange={(e) => setCustomerVatNr(e.target.value)}
-        />
-        <label>Customer reference</label>
-        <Input
-          type="text"
-          value={customerReference}
-          onChange={(e) => setCustomerReference(e.target.value)}
-        />
-        <label>Payment Term</label>
-        <Input
-          type="number"
-          value={customerPaymentTerm}
-          onChange={(e) => setCustomerPaymentTerm(e.target.value)}
-        />
-        <label>Website</label>
-        <Input
-          type="text"
-          value={customerWebsite}
-          onChange={(e) => setCustomerWebsite(e.target.value)}
-        />
-        <label>Email</label>
-        <Input
-          type="email"
-          value={customerEmail}
-          onChange={(e) => setCustomerEmail(e.target.value)}
-        />
-        <label>Phone number</label>
-        <Input
-          type="number"
-          value={customerPhoneNr}
-          onChange={(e) => setCustomerPhoneNr(e.target.value)}
-        />
-        <Button onClick={handleCreateCustomer}>Create customer</Button>
+        <CreateCustomerForm>
+          <h2>Create a new customer</h2>
+          <label>Customer name</label>
+          <Input
+            type="text"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            required
+          />
+          <label>Organisation number</label>
+          <Input
+            type="number"
+            placeholder="[0,1,2]"
+            value={customerOrgNr}
+            onChange={(e) => setCustomerOrgNr(e.target.value)}
+            required
+          />
+          <label>VatNr</label>
+          <Input
+            value={customerVatNr}
+            placeholder="SE**********"
+            onChange={(e) => setCustomerVatNr(e.target.value)}
+            required
+          />
+          <label>Customer reference</label>
+          <Input
+            type="text"
+            value={customerReference}
+            onChange={(e) => setCustomerReference(e.target.value)}
+            required
+          />
+          <label>Payment Term</label>
+          <Input
+            type="number"
+            value={customerPaymentTerm}
+            onChange={(e) => setCustomerPaymentTerm(e.target.value)}
+            required
+          />
+          <label>Website</label>
+          <Input
+            type="text"
+            value={customerWebsite}
+            onChange={(e) => setCustomerWebsite(e.target.value)}
+            required
+          />
+          <label>Email</label>
+          <Input
+            type="email"
+            value={customerEmail}
+            onChange={(e) => setCustomerEmail(e.target.value)}
+            required
+          />
+          <label>Phone number</label>
+          <Input
+            type="number"
+            value={customerPhoneNr}
+            onChange={(e) => setCustomerPhoneNr(e.target.value)}
+            required
+          />
+          <Button onClick={handleCreateCustomer}>Create customer</Button>
+        </CreateCustomerForm>
       </CreateCustomerStyle>
     </div>
   );
